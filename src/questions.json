@@ -1,0 +1,17 @@
+[
+    {
+        "question": "Jaki jest największy kontynent?",
+        "options": ["Azja", "Europa", "Afryka"],
+        "correct_answer": "Azja"
+    },
+    {
+        "question": "Ile to 2 + 2?",
+        "options": ["3", "4", "5"],
+        "correct_answer": "4"
+    },
+    {
+        "question": "Kto napisał 'Pana Tadeusza'?",
+        "options": ["Adam Mickiewicz", "Juliusz Słowacki", "Maria Konopnicka"],
+        "correct_answer": "Adam Mickiewicz"
+    }
+]
