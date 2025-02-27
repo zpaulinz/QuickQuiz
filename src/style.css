@@ -1,0 +1,60 @@
+QWidget {
+    background-color: #ffffff;
+    font-family: Arial;
+    padding: 5px;
+}
+
+QLabel {
+    font-size: 20px;
+    font-weight: bold;
+    color: #0059ff;
+    padding: 10px;    
+    text-align: center;
+}
+
+QRadioButton {
+    font-size: 16px;
+    color: #000000;
+    margin-bottom: 10px; 
+}
+
+QPushButton {
+    background-color: #0059ff;
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+QPushButton:hover {
+    background-color: #0043bf;
+}
+
+QPushButton:pressed {
+    background-color: #0043bf;
+}
+
+QStackedWidget {
+    margin-left: 50%;
+    margin-right: 50%;
+}
+
+
+#resultLabel {
+    font-weight: bold;
+    color: #cb026d;  
+    margin-bottom: 20px;
+}
+
+#playAgainButton {
+    background-color: #cb026d; 
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+}
+
+#playAgainButton:hover {
+    background-color: #93024f; 
+}
+
