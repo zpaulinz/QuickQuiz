@@ -1,4 +1,5 @@
 import json
+import random
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QWidget, QLabel, QRadioButton, QPushButton, QVBoxLayout, QButtonGroup, QStackedWidget
 from questionview import QuestionView
@@ -16,6 +17,7 @@ class QuickQuiz(QWidget):
         # Load questions from a JSON file
         with open('questions.json', 'r', encoding='utf-8') as f:
             self.questions = json.load(f)
+        random.shuffle(self.questions)
 
         self.current_question = 0
         self.score = 0
@@ -56,7 +58,10 @@ class QuickQuiz(QWidget):
 
     def update_question(self):
         # Update the displayed question
-        self.question_view.update(self.questions[self.current_question])
+        question_data = self.questions[self.current_question].copy()
+        random.shuffle(question_data["options"])
+        
+        self.question_view.update(question_data)
 
     def show_results(self):
         # Update the results view with the final score
@@ -68,6 +73,9 @@ class QuickQuiz(QWidget):
         # Reset the quiz
         self.current_question = 0
         self.score = 0
+        
+        random.shuffle(self.questions)
+        
         self.update_question()
         self.stacked_widget.setCurrentWidget(self.question_view)
         
