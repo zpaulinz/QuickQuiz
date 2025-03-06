@@ -58,3 +58,19 @@ QStackedWidget {
     background-color: #93024f; 
 }
 
+#titleLabel {
+    font-size: 36px;
+    color: #000000;
+    padding-top: 45px;
+}
+
+#headerLabel {
+    font-size: 20px;
+    color: #02CB0F;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+}
+
+#startButton {
+    background-color: #02CB0F;
+}
