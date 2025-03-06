@@ -1,7 +1,7 @@
 import json
 import random
-from PyQt5.QtCore import Qt
-from PyQt5.QtWidgets import QWidget, QLabel, QRadioButton, QPushButton, QVBoxLayout, QButtonGroup, QStackedWidget
+from PyQt5.QtCore import QTimer
+from PyQt5.QtWidgets import QWidget, QVBoxLayout, QStackedWidget
 from questionview import QuestionView
 from resultsview import ResultsView
 
@@ -37,6 +37,7 @@ class QuickQuiz(QWidget):
         # Initialize the question view and add it to the stacked widget
         self.question_view = QuestionView(self.questions[self.current_question], self.check_answer)
         self.stacked_widget.addWidget(self.question_view)
+        
 
     def create_results_view(self):
         # Initialize the results view and add it to the stacked widget
@@ -54,18 +55,30 @@ class QuickQuiz(QWidget):
         if self.current_question < len(self.questions):
             self.update_question()
         else:
-            self.show_results()
-
+            # Update progress bar to 100%
+            self.update_progress_bar(100)  
+            
+            # Set a timer to delay showing results
+            QTimer.singleShot(1200, self.show_results)  # 1200 ms = 1.2 s
+            
+    def update_progress_bar(self, progress):
+        # Updates the progress bar with the given progress percentage
+        self.question_view.progress_bar.setValue(progress)
+        
     def update_question(self):
+        # Calculate the progress
+        progress = int(((self.current_question + 0) / len(self.questions)) * 100)
+        
         # Update the displayed question
         question_data = self.questions[self.current_question].copy()
         random.shuffle(question_data["options"])
         
-        self.question_view.update(question_data)
+        self.question_view.update(question_data, progress)
 
     def show_results(self):
         # Update the results view with the final score
         self.results_view.show_results(self.score, len(self.questions))
+        
         # Switch to the results view
         self.stacked_widget.setCurrentWidget(self.results_view)
 

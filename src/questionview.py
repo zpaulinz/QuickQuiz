@@ -1,4 +1,4 @@
-from PyQt5.QtWidgets import QWidget, QVBoxLayout, QLabel, QRadioButton, QButtonGroup, QPushButton
+from PyQt5.QtWidgets import QWidget, QVBoxLayout, QLabel, QRadioButton, QButtonGroup, QPushButton, QProgressBar
 from PyQt5.QtCore import Qt
 
 class QuestionView(QWidget):
@@ -6,9 +6,16 @@ class QuestionView(QWidget):
         super().__init__()
         self.question_data = question_data
         self.check_answer_callback = check_answer_callback
-
+        
         # Create a vertical layout for the question view
         question_layout = QVBoxLayout(self)
+
+        # Create progress bar
+        self.progress_bar = QProgressBar(self)
+        self.progress_bar.setRange(0,100)
+        self.progress_bar.setFixedHeight(20)
+        self.progress_bar.setTextVisible(False)
+        question_layout.addWidget(self.progress_bar)
 
         # Create and center the question label
         self.question_label = QLabel(self.question_data["question"], self)
@@ -34,6 +41,8 @@ class QuestionView(QWidget):
         self.submit_button = QPushButton("Sprawdź odpowiedź", self)
         self.submit_button.clicked.connect(self.submit_answer)
         question_layout.addWidget(self.submit_button)
+        
+    
 
     def submit_answer(self):
         """Submit the answer and call the callback."""
@@ -41,7 +50,7 @@ class QuestionView(QWidget):
         if selected_button:
             self.check_answer_callback(selected_button.text())
 
-    def update(self, question_data):
+    def update(self, question_data, progress):
         """Update the question view with new question data."""
         self.question_data = question_data
         self.question_label.setText(self.question_data["question"])
@@ -55,3 +64,6 @@ class QuestionView(QWidget):
         for radio_button in self.radio_buttons:
             radio_button.setChecked(False)
         self.button_group.setExclusive(True)
+        
+        #Update the progress bar
+        self.progress_bar.setValue(progress)
