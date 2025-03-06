@@ -17,5 +17,6 @@ class ResultsView(QWidget):
         self.play_again_button.clicked.connect(play_again_callback)
         self.layout.addWidget(self.play_again_button)
 
+
     def show_results(self, score, total_questions):
         self.result_label.setText(f"Twój wynik: {score} / {total_questions}")

@@ -42,13 +42,13 @@ class QuestionView(QWidget):
         self.submit_button.clicked.connect(self.submit_answer)
         question_layout.addWidget(self.submit_button)
         
-    
 
     def submit_answer(self):
         """Submit the answer and call the callback."""
         selected_button = self.button_group.checkedButton()
         if selected_button:
             self.check_answer_callback(selected_button.text())
+
 
     def update(self, question_data, progress):
         """Update the question view with new question data."""
