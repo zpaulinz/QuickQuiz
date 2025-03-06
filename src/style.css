@@ -44,7 +44,18 @@ QStackedWidget {
     font-weight: bold;
     color: #cb026d;  
     margin-bottom: 20px;
+    font-size: 26px;
+    padding-top: 20px;
 }
+
+#descriptionLabel {
+    color: #000000;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    font-size: 20px;
+    width:100%;
+}
+
 
 #playAgainButton {
     background-color: #cb026d; 
@@ -74,3 +85,4 @@ QStackedWidget {
 #startButton {
     background-color: #02CB0F;
 }
+
