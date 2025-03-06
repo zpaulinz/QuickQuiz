@@ -60,10 +60,14 @@ class QuickQuiz(QWidget):
         if selected_answer.lower() == correct_answer.lower():
             self.score += 1
 
+        self.question_view.color_answers()
+
         # Move to the next question
         self.current_question += 1
         if self.current_question < len(self.questions):
-            self.update_question()
+            QTimer.singleShot(2000, self.question_view.reset_answers)  
+            QTimer.singleShot(2000, self.update_question) 
+            # self.update_question()
         else:
             # Update progress bar to 100%
             self.update_progress_bar(100)  
@@ -101,6 +105,7 @@ class QuickQuiz(QWidget):
         self.current_question = 0
         self.score = 0
         
+        self.question_view.reset_answers()
         random.shuffle(self.questions)
         
         self.update_question()

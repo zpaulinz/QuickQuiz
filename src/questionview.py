@@ -48,6 +48,34 @@ class QuestionView(QWidget):
         selected_button = self.button_group.checkedButton()
         if selected_button:
             self.check_answer_callback(selected_button.text())
+            self.color_answers()
+            
+            # Disable the buttons to prevent further changes
+            for radio_button in self.radio_buttons:
+                radio_button.setEnabled(False)
+
+
+    def color_answers(self):
+        correct_answer = self.question_data["correct_answer"]
+        
+        for radio_button in self.radio_buttons:
+            if radio_button.text().lower() == correct_answer.lower():
+                radio_button.setStyleSheet("color: green; font-weight: bold;")
+            else:
+                radio_button.setStyleSheet("color: red; ")
+
+
+    def reset_answers(self):
+        """Reset the colors and enable the radio buttons."""
+        for radio_button in self.radio_buttons:
+            radio_button.setStyleSheet("")  
+            radio_button.setEnabled(True)
+            
+        # Reset any selections
+        self.button_group.setExclusive(False)
+        for radio_button in self.radio_buttons:
+            radio_button.setChecked(False)
+        self.button_group.setExclusive(True)
 
 
     def update(self, question_data, progress):
