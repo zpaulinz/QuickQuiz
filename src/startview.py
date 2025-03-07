@@ -9,7 +9,7 @@ class StartView(QWidget):
     
         self.title_label = QLabel(self)
         self.title_label.setObjectName("titleLabel")  
-        self.title_label.setAlignment(Qt.AlignBottom) 
+        self.title_label.setAlignment(Qt.AlignCenter) 
         self.title_label.setText(f"QuickQuiz") 
         
         self.title_label.setFixedHeight(120)
