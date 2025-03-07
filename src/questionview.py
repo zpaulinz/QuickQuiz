@@ -1,5 +1,6 @@
-from PyQt5.QtWidgets import QWidget, QVBoxLayout, QLabel, QRadioButton, QButtonGroup, QPushButton, QProgressBar
-from PyQt5.QtCore import Qt
+from PyQt5.QtWidgets import QWidget, QVBoxLayout, QLabel, QRadioButton, QButtonGroup, QPushButton, QProgressBar, QStyleOptionProgressBar
+from PyQt5.QtCore import Qt, QRect
+from PyQt5.QtGui import QPainter, QColor
 
 class QuestionView(QWidget):
     def __init__(self, question_data, check_answer_callback):
@@ -11,15 +12,16 @@ class QuestionView(QWidget):
         question_layout = QVBoxLayout(self)
 
         # Create progress bar
-        self.progress_bar = QProgressBar(self)
+        self.progress_bar = CustomProgressBar(self)
         self.progress_bar.setRange(0,100)
-        self.progress_bar.setFixedHeight(20)
+        self.progress_bar.setFixedHeight(10)
         self.progress_bar.setTextVisible(False)
         question_layout.addWidget(self.progress_bar)
 
         # Create and center the question label
         self.question_label = QLabel(self.question_data["question"], self)
         self.question_label.setAlignment(Qt.AlignCenter)  
+        self.question_label.setWordWrap(True)
         question_layout.addWidget(self.question_label)
 
         # Layout for radio buttons (answer options)
@@ -78,7 +80,7 @@ class QuestionView(QWidget):
         self.button_group.setExclusive(True)
 
 
-    def update(self, question_data, progress):
+    def update(self, question_data, progress, is_last_question=False):
         """Update the question view with new question data."""
         self.question_data = question_data
         self.question_label.setText(self.question_data["question"])
@@ -95,3 +97,55 @@ class QuestionView(QWidget):
         
         #Update the progress bar
         self.progress_bar.setValue(progress)
+        
+        # If it's the last question, update the submit button
+        if is_last_question:
+            self.set_last_question()
+        else:
+            self.reset_button()
+            
+
+    def set_last_question(self):
+        self.submit_button.setText("Podsumowanie")
+        self.submit_button.setStyleSheet("background-color: #FF00C3;")
+        
+        
+    def reset_button(self):
+        self.submit_button.setText("Sprawdź odpowiedź")
+        self.submit_button.setStyleSheet("")
+
+
+class CustomProgressBar(QProgressBar):
+    def __init__(self, parent=None):
+        super().__init__(parent)
+    
+
+    def paintEvent(self, event):
+        # Utworzenie obiektu QStyleOptionProgressBar, by uzyskać informacje o postępie
+        option = QStyleOptionProgressBar()
+        self.initStyleOption(option)
+
+        # Tworzymy obiekt QPainter do rysowania
+        painter = QPainter(self)
+
+        # Włączamy wygładzanie
+        painter.setRenderHint(QPainter.Antialiasing)
+
+        # Malowanie tła progress bar'a
+        painter.setBrush(QColor("#f0f0f0"))  # Kolor tła (jasny szary)
+        painter.setPen(Qt.NoPen)
+        painter.drawRoundedRect(option.rect, 5, 5)  # Rysowanie zaokrąglonego tła
+
+        # Obliczanie szerokości wypełnienia progress bar'a
+        fill_rect = QRect(option.rect)
+        fill_rect.setWidth(int(option.rect.width() * self.value() / 100))  # Dopasowanie szerokości wypełnienia na podstawie wartości
+
+        # Malowanie wypełnienia progress bar'a
+        if self.value() < 100:
+            painter.setBrush(QColor("#0059ff"))  # Kolor niebieski, jeśli postęp < 100%
+        else:
+            painter.setBrush(QColor("#FF00C3"))  # Kolor różowy, jeśli postęp == 100%
+        painter.drawRoundedRect(fill_rect, 5, 5)  # Rysowanie wypełnionego obszaru (zaokrąglone rogi)
+
+        # Kończymy malowanie
+        painter.end()

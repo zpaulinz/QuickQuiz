@@ -65,31 +65,31 @@ class QuickQuiz(QWidget):
         # Move to the next question
         self.current_question += 1
         if self.current_question < len(self.questions):
-            QTimer.singleShot(2000, self.question_view.reset_answers)  
-            QTimer.singleShot(2000, self.update_question) 
-            # self.update_question()
+            QTimer.singleShot(1200, self.question_view.reset_answers)  
+            QTimer.singleShot(1200, self.update_question)          
         else:
-            # Update progress bar to 100%
+            # Last question
             self.update_progress_bar(100)  
-            
+        
             # Set a timer to delay showing results
-            QTimer.singleShot(1200, self.show_results)  # 1200 ms = 1.2 s
+            QTimer.singleShot(1500, self.show_results)  # 1200 ms = 1.2 s
             
             
     def update_progress_bar(self, progress):
         # Updates the progress bar with the given progress percentage
         self.question_view.progress_bar.setValue(progress)
-        
+            
         
     def update_question(self):
         # Calculate the progress
         progress = int(((self.current_question + 0) / len(self.questions)) * 100)
         
+        is_last_question = self.current_question == len(self.questions) -1
         # Update the displayed question
         question_data = self.questions[self.current_question].copy()
         random.shuffle(question_data["options"])
         
-        self.question_view.update(question_data, progress)
+        self.question_view.update(question_data, progress, is_last_question)
 
 
     def show_results(self):
@@ -106,6 +106,7 @@ class QuickQuiz(QWidget):
         self.score = 0
         
         self.question_view.reset_answers()
+        self.question_view.reset_button()
         random.shuffle(self.questions)
         
         self.update_question()
