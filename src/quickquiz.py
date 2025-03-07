@@ -15,7 +15,7 @@ class QuickQuiz(QWidget):
         # Load CSS styles
         self.load_styles()
         
-        # Load questions from a JSON file
+        # Load questions
         with open('questions.json', 'r', encoding='utf-8') as f:
             self.questions = json.load(f)
         random.shuffle(self.questions)
@@ -23,7 +23,7 @@ class QuickQuiz(QWidget):
         self.current_question = 0
         self.score = 0
 
-        # Stacked widget to switch between different views
+        # Stacked widget to switch between views
         self.stacked_widget = QStackedWidget(self)
         self.layout = QVBoxLayout(self)
 
@@ -54,15 +54,15 @@ class QuickQuiz(QWidget):
         self.stacked_widget.addWidget(self.results_view)
 
 
+    # Check the selected answer and update score
     def check_answer(self, selected_answer):
-        # Check if the selected answer is correct
         correct_answer = self.questions[self.current_question]["correct_answer"]
         if selected_answer.lower() == correct_answer.lower():
             self.score += 1
 
         self.question_view.color_answers()
 
-        # Move to the next question
+        # Move to the next question or show results
         self.current_question += 1
         if self.current_question < len(self.questions):
             QTimer.singleShot(1200, self.question_view.reset_answers)  
@@ -73,13 +73,14 @@ class QuickQuiz(QWidget):
         
             # Set a timer to delay showing results
             QTimer.singleShot(1500, self.show_results)  # 1200 ms = 1.2 s
-            
-            
+    
+    
+    # Update the progress bar value 
     def update_progress_bar(self, progress):
-        # Updates the progress bar with the given progress percentage
         self.question_view.progress_bar.setValue(progress)
             
-        
+            
+    # Update question and progress
     def update_question(self):
         # Calculate the progress
         progress = int(((self.current_question + 0) / len(self.questions)) * 100)
@@ -92,6 +93,7 @@ class QuickQuiz(QWidget):
         self.question_view.update(question_data, progress, is_last_question)
 
 
+    # Show the results after quiz ends
     def show_results(self):
         # Update the results view with the final score
         self.results_view.show_results(self.score, len(self.questions))
@@ -100,8 +102,8 @@ class QuickQuiz(QWidget):
         self.stacked_widget.setCurrentWidget(self.results_view)
 
 
+    # Restart the quiz
     def play_again(self):
-        # Reset the quiz
         self.current_question = 0
         self.score = 0
         
@@ -112,13 +114,13 @@ class QuickQuiz(QWidget):
         self.update_question()
         self.stacked_widget.setCurrentWidget(self.start_view)
     
-    
+    # Start the quiz
     def start_quiz(self):
         self.stacked_widget.setCurrentWidget(self.question_view)
         
         
-    def load_styles(self):
-        # Load CSS styles from a file
+    # Load CSS styles from a file   
+    def load_styles(self):    
         try:
             with open('style.css', 'r') as file:
                 self.setStyleSheet(file.read())
