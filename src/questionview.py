@@ -40,7 +40,7 @@ class QuestionView(QWidget):
         question_layout.addLayout(self.radio_buttons_layout)
 
         # Create submit button
-        self.submit_button = QPushButton("Sprawdź odpowiedź", self)
+        self.submit_button = QPushButton("Następne pytanie", self)
         self.submit_button.clicked.connect(self.submit_answer)
         question_layout.addWidget(self.submit_button)
         
@@ -113,5 +113,5 @@ class QuestionView(QWidget):
         
     # Reset the submit button for regular questions
     def reset_button(self):
-        self.submit_button.setText("Sprawdź odpowiedź")
+        self.submit_button.setText("Następne pytanie")
         self.submit_button.setStyleSheet("")
