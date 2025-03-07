@@ -89,3 +89,7 @@ QStackedWidget {
 #startButton {
     background-color: #A600FF;
 }
+
+#startButton:hover {
+    background-color: #9102de; 
+}
