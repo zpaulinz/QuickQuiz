@@ -9,22 +9,22 @@ class StartView(QWidget):
     
         self.title_label = QLabel(self)
         self.title_label.setObjectName("titleLabel")  
-        self.title_label.setAlignment(Qt.AlignCenter) 
+        self.title_label.setAlignment(Qt.AlignBottom) 
         self.title_label.setText(f"QuickQuiz") 
         
-        self.title_label.setFixedHeight(80)
+        self.title_label.setFixedHeight(120)
         self.layout.addWidget(self.title_label)
 
         self.header_label = QLabel(self)
         self.header_label.setObjectName("headerLabel")  
-        self.header_label.setAlignment(Qt.AlignCenter)  
+        self.header_label.setAlignment(Qt.AlignTop)  
         self.header_label.setText(f"Sprawdź swoją wiedzę!") 
 
-        self.header_label.setFixedHeight(60)
+        self.header_label.setFixedHeight(120)
         self.layout.addWidget(self.header_label)
         
         self.start_button = QPushButton("Rozpocznij quiz", self)
         self.start_button.setObjectName("startButton")  
         self.start_button.clicked.connect(start_game_callback)
-        self.header_label.setFixedHeight(82)
+        self.header_label.setFixedHeight(200)
         self.layout.addWidget(self.start_button)
