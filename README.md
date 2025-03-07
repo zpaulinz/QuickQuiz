@@ -1,5 +1,8 @@
 # QuickQuiz
-A simple Python app for taking quizzes. Answer the questions and get your score at the end. Perfect for a quick knowledge check and fun!
+A Python app for taking quizzes. Answer the questions and get your score at the end.
+
+## Views example
+<img src="views.png" alt="View" width="75%">
 
 ## Author
 ### Paulina Zabielska 
