@@ -42,12 +42,23 @@ QStackedWidget {
 
 #resultLabel {
     font-weight: bold;
-    color: #cb026d;  
+    color: #A600FF;  
     margin-bottom: 20px;
+    font-size: 24px;
+    padding-top: 20px;
 }
 
+#descriptionLabel {
+    color: #000000;
+    margin-bottom: 45px;
+    padding-bottom: 10px;
+    font-size: 20px;
+    width:100%;
+}
+
+
 #playAgainButton {
-    background-color: #cb026d; 
+    background-color: #A600FF; 
     color: white;
     padding: 10px 20px;
     border: none;
@@ -55,22 +66,26 @@ QStackedWidget {
 }
 
 #playAgainButton:hover {
-    background-color: #93024f; 
+    background-color: #9102de; 
 }
 
 #titleLabel {
-    font-size: 36px;
+    font-size: 38px;
     color: #000000;
     padding-top: 45px;
+    margin-left: 50%;
+    margin-right: 50%;
 }
 
 #headerLabel {
     font-size: 20px;
-    color: #02CB0F;
+    color: #A600FF;
     margin-bottom: 20px;
     padding-bottom: 10px;
+    margin-left: 50%;
+    margin-right: 50%;
 }
 
 #startButton {
-    background-color: #02CB0F;
+    background-color: #A600FF;
 }
