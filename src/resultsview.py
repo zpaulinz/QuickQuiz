@@ -36,5 +36,5 @@ class ResultsView(QWidget):
         if score == total_questions:
             self.description_label.setText(f"Gratulacje! Znasz wszystkie odpowiedzi!")
         else:
-            self.description_label.setText(f"Uzyskano {percent_score}% poprawnych odpowiedzi")
+            self.description_label.setText(f"Uzyskano {percent_score}% poprawnych odpowiedzi.")
         
