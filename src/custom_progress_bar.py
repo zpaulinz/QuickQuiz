@@ -1,3 +1,8 @@
+# Copyright (c) 2025 Paulina Zabielska
+
+# All rights reserved. 
+# This software may not be used, copied, modified, or distributed for commercial purposes without the prior written consent of the author.
+
 from PyQt5.QtWidgets import QProgressBar, QStyleOptionProgressBar
 from PyQt5.QtGui import QPainter, QColor
 from PyQt5.QtCore import Qt, QRect
